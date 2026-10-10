@@ -1095,13 +1095,18 @@ def mark_all_notifications_read(user_payload: dict = Depends(get_current_user_fr
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get("/", response_class=FileResponse)
+@app.get("/index.html", response_class=FileResponse)
 @app.get("/login", response_class=FileResponse)
 @app.get("/admin/login", response_class=FileResponse)
 def serve_index():
     index_file = os.path.join(STATIC_DIR, "index.html")
     if os.path.exists(index_file):
         return FileResponse(index_file)
-    return HTMLResponse("<h1>ACM SRMIST Campus Event Platform</h1><p>Building frontend...</p>")
+    return HTMLResponse("<h1>ACM SRMIST Campus Event Platform</h1><p>Frontend loading...</p>")
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return Response(status_code=204)
 
 if __name__ == "__main__":
     import uvicorn
