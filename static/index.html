@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACM SRMIST Pulse | Campus Event Management Platform</title>
+  <meta name="description" content="Discover, register, and manage campus technical symposiums, workshops, hackathons, and cultural fests at SRM Institute of Science and Technology.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- 1. PRE-LOGIN GATEWAY SCREEN (Shown when not authenticated)                -->
+  <!-- ========================================================================= -->
+  <div id="login-gateway" class="login-gateway">
+    <div class="gateway-brand">
+      <div class="gateway-logo-wrap">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="gateway-badge">
+        <span>SRMIST &bull; ACM Student Chapter </span>
+      </div>
+      <h1 class="gateway-title">
+        ACM SRMIST <span class="gradient-text">Pulse</span>
+      </h1>
+      <p class="gateway-subtitle">
+        Campus Event Discovery, Registration & Executive Organizer Platform.<br>
+        Please select your access portal below to continue.
+      </p>
+    </div>
+
+    <!-- Dual Portal Cards (Student vs Admin) -->
+    <div class="gateway-grid">
+
+      <!-- PORTAL 1: STUDENT ACCESS -->
+      <div class="gateway-card student-card">
+        <div class="gateway-card-header">
+          <div class="gateway-card-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div>
+            <span class="auth-portal-badge auth-badge-student">SRMIST Student Access</span>
+            <h2 class="gateway-card-title">Student Portal</h2>
+          </div>
+        </div>
+
+        <p class="gateway-card-desc">
+          Browse upcoming campus hackathons, deep-tech workshops, and cultural fests. Reserve seats with instant QR E-Tickets and live capacity updates.
+        </p>
+
+        <!-- Demo Accounts Shelf (Student) -->
+        <div class="demo-shelf">
+          <div class="demo-shelf-title">
+            <span>⚡ 1-Click Demo Students</span>
+            <span style="font-size: 0.7rem; color: #34d399;">Click to Enter</span>
+          </div>
+          <div class="demo-buttons-grid">
+            <button class="demo-account-btn" onclick="directDemoLogin('student@srmist.edu.in', 'student123', 'student')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Aarav Sharma</span>
+                <span class="demo-account-meta">student@srmist.edu.in &bull; Final Year CSE</span>
+              </div>
+              <span class="demo-quick-tag">Login &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('priya@srmist.edu.in', 'student123', 'student')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Priya Sundaram</span>
+                <span class="demo-account-meta">priya@srmist.edu.in &bull; 3rd Year IT</span>
+              </div>
+              <span class="demo-quick-tag">Login &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('rohan@srmist.edu.in', 'student123', 'student')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Rohan Iyer</span>
+                <span class="demo-account-meta">rohan@srmist.edu.in &bull; 2nd Year AI/DS</span>
+              </div>
+              <span class="demo-quick-tag">Login &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('sneha@srmist.edu.in', 'student123', 'student')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Sneha Reddy</span>
+                <span class="demo-account-meta">sneha@srmist.edu.in &bull; 3rd Year ECE</span>
+              </div>
+              <span class="demo-quick-tag">Login &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('karthik@srmist.edu.in', 'student123', 'student')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Karthik Verma</span>
+                <span class="demo-account-meta">karthik@srmist.edu.in &bull; 2nd Year Biotech</span>
+              </div>
+              <span class="demo-quick-tag">Login &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="gateway-divider">
+          <span>Or Sign In With Email</span>
+        </div>
+
+        <!-- Student Sign In Form -->
+        <form id="gateway-student-form" onsubmit="handleGatewayStudentLogin(event)">
+          <div class="form-group">
+            <label class="form-label">SRMIST Student Email</label>
+            <input type="email" id="gateway-student-email" class="form-control" placeholder="your_name@srmist.edu.in" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="gateway-student-password" class="form-control" placeholder="Enter password" required />
+          </div>
+          <button type="submit" class="btn-primary student-portal-btn" style="width: 100%; margin-top: 0.5rem;">
+            Sign In as Student &rarr;
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: #94a3b8;">
+          First time here? 
+          <a href="#" onclick="toggleGatewayRegister(); return false;" style="color: #60a5fa; font-weight: 600; text-decoration: none;">Create Student Account</a>
+        </div>
+
+        <!-- Student Registration Form (Collapsible) -->
+        <form id="gateway-register-form" style="display: none; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08);" onsubmit="handleGatewayStudentRegister(event)">
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; color: #fff;">Student Profile Registration</h4>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="gw-reg-name" class="form-control" placeholder="e.g. Rahul Dev" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Registration Number</label>
+            <input type="text" id="gw-reg-no" class="form-control" placeholder="e.g. RA2211003010999" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Department / Branch</label>
+            <input type="text" id="gw-reg-dept" class="form-control" placeholder="e.g. Computer Science & Engg" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="gw-reg-email" class="form-control" placeholder="name@srmist.edu.in" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="gw-reg-password" class="form-control" placeholder="Minimum 6 characters" minlength="6" required />
+          </div>
+          <button type="submit" class="btn-success" style="width: 100%; margin-top: 0.5rem;">
+            Complete Registration & Sign In
+          </button>
+        </form>
+      </div>
+
+      <!-- PORTAL 2: ADMIN & ORGANIZER ACCESS -->
+      <div class="gateway-card admin-card">
+        <div class="gateway-card-header">
+          <div class="gateway-card-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <span class="auth-portal-badge auth-badge-admin">Executive & Faculty Access</span>
+            <h2 class="gateway-card-title">Admin Dashboard</h2>
+          </div>
+        </div>
+
+        <p class="gateway-card-desc">
+          Authorized management console for ACM SRMIST Chapter leads and faculty. Full access to create, edit, delete events, export participant CSVs, and gate check-in.
+        </p>
+
+        <!-- Demo Accounts Shelf (Admin) -->
+        <div class="demo-shelf">
+          <div class="demo-shelf-title">
+            <span>⚡ 1-Click Demo Organizers</span>
+            <span style="font-size: 0.7rem; color: #c4b5fd;">Click to Enter</span>
+          </div>
+          <div class="demo-buttons-grid">
+            <button class="demo-account-btn" onclick="directDemoLogin('admin@acm.srmist.edu.in', 'admin123', 'admin')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">ACM SRMIST Admin</span>
+                <span class="demo-account-meta">admin@acm.srmist.edu.in &bull; Overall Lead (Full CRUD)</span>
+              </div>
+              <span class="demo-quick-tag">Console &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('techlead@acm.srmist.edu.in', 'admin123', 'admin')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Tech Lead - Foundry</span>
+                <span class="demo-account-meta">techlead@acm.srmist.edu.in &bull; Foundry Domain Lead</span>
+              </div>
+              <span class="demo-quick-tag">Console &rarr;</span>
+            </button>
+            <button class="demo-account-btn" onclick="directDemoLogin('faculty@srmist.edu.in', 'admin123', 'admin')">
+              <div class="demo-account-info">
+                <span class="demo-account-name">Dr. S.M (Faculty)</span>
+                <span class="demo-account-meta">faculty@srmist.edu.in &bull; Faculty In-Charge</span>
+              </div>
+              <span class="demo-quick-tag">Console &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="gateway-divider">
+          <span>Or Sign In With Organizer Key</span>
+        </div>
+
+        <!-- Admin Sign In Form -->
+        <form id="gateway-admin-form" onsubmit="handleGatewayAdminLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Organizer / Faculty Email</label>
+            <input type="email" id="gateway-admin-email" class="form-control" placeholder="admin@acm.srmist.edu.in" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Executive Security Password</label>
+            <input type="password" id="gateway-admin-password" class="form-control" placeholder="Enter administrative password" required />
+          </div>
+          <button type="submit" class="btn-primary admin-portal-btn" style="width: 100%; margin-top: 0.5rem;">
+            Authorize & Open Admin Console &rarr;
+          </button>
+        </form>
+
+        <div style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1.5rem; font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">
+          🔒 <strong>Organizer Notice:</strong> Admin sessions can create, modify, and delete event listings, access attendee contact records, and scan entry QR codes at gates.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN APPLICATION LAYOUT (Only shown after authentication)              -->
+  <!-- ========================================================================= -->
+  <div id="app-layout" style="display: none;">
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="#" class="brand" onclick="handleBrandClick(); return false;">
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="brand-text">
+            <h1>ACM SRMIST Pulse</h1>
+            <p id="navbar-role-subtitle">Campus Event Hub</p>
+          </div>
+        </a>
+
+        <!-- Dynamic Role-Based Nav Links -->
+        <nav>
+          <ul class="nav-links">
+            <!-- Student Primary Tab -->
+            <li id="nav-item-dashboard">
+              <button id="nav-dashboard" class="nav-btn active">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                My Student Dashboard
+              </button>
+            </li>
+            <!-- Admin Primary Tab -->
+            <li id="nav-item-admin" style="display: none;">
+              <button id="nav-admin-tab" class="nav-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Admin Dashboard
+                <span class="badge-tag" style="background: rgba(139,92,246,0.3); color: #c4b5fd;">Executive</span>
+              </button>
+            </li>
+            <!-- Common Tabs -->
+            <li>
+              <button id="nav-explore" class="nav-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                Discover Events
+              </button>
+            </li>
+            <li>
+              <button id="nav-calendar" class="nav-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Campus Calendar
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Right Side of Navbar (Profile, Notifications, Logout - NO login buttons!) -->
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <!-- Notification Bell -->
+          <button id="btn-notifications" class="icon-btn" title="View Notifications">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span id="notification-badge" class="notification-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- User Section -->
+          <div id="user-section"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+      <!-- ========================================================== -->
+      <!-- VIEW A: STUDENT DASHBOARD PAGE                             -->
+      <!-- ========================================================== -->
+      <div id="section-dashboard" style="padding-top: 1.5rem;">
+        <!-- Welcome Hero Banner -->
+        <div class="student-banner-card">
+          <div class="student-banner-info">
+            <span class="auth-portal-badge auth-badge-student">SRMIST Student Space</span>
+            <h2 id="student-welcome-name">Welcome to Your Student Dashboard</h2>
+            <p style="color: #cbd5e1; font-size: 0.95rem;">Manage your reserved event tickets, access verified entry QR boarding passes, or explore upcoming technical fests.</p>
+            <div class="student-badges-row">
+              <span id="student-badge-regno" class="student-badge-pill">Reg No: Loading...</span>
+              <span id="student-badge-dept" class="student-badge-pill">Dept: Loading...</span>
+              <span id="student-badge-tickets" class="student-badge-pill" style="color: #34d399; border-color: rgba(16,185,129,0.3);">0 Confirmed Passes</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="switchTab('explore')">
+            Browse More Events &rarr;
+          </button>
+        </div>
+
+        <!-- Student Registrations List -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem;">My Registered Events & Tickets</h3>
+          <span style="font-size: 0.82rem; color: #94a3b8;">Show your ticket QR code at the entrance gate</span>
+        </div>
+
+        <div id="my-registrations-list"></div>
+      </div>
+
+
+      <!-- ========================================================== -->
+      <!-- VIEW B: ADMIN DASHBOARD PAGE                               -->
+      <!-- ========================================================== -->
+      <div id="section-admin" style="display: none; padding-top: 1.5rem;">
+        <!-- Admin Dashboard Header -->
+        <div class="dashboard-header" style="flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <span class="auth-portal-badge auth-badge-admin">Executive Console</span>
+            <h2 style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 700;">ACM SRMIST Organizer Console</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Full administrative oversight: Create & edit campus events, manage participant rosters, export CSVs, and operate gate entry desks.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn-outline" onclick="openCheckInModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h3"/><path d="M20 7V4h-3"/><path d="M4 17v3h3"/><path d="M20 17v3h-3"/><rect x="7" y="7" width="10" height="10"/></svg>
+              Gate Check-In Desk
+            </button>
+            <button class="btn-primary" onclick="openCreateEventModal()">
+              + Create New Event
+            </button>
+          </div>
+        </div>
+
+        <div id="admin-content"></div>
+      </div>
+
+
+      <!-- ========================================================== -->
+      <!-- VIEW C: DISCOVER / EXPLORE EVENTS                          -->
+      <!-- ========================================================== -->
+      <div id="section-explore" style="display: none;">
+        <!-- Hero Header -->
+        <section class="hero-section">
+          <div class="hero-content">
+            <div class="hero-pill">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399;"></span>
+              SRMIST Campus Event Discovery &bull; 2026
+            </div>
+            <h2 class="hero-title">
+              Discover What's Happening Across <span class="gradient-text">SRMIST Campus</span>
+            </h2>
+            <p class="hero-desc">
+              Explore national hackathons, deep-tech bootcamps, esports tournaments, and cultural fests. Reserve instant E-Tickets with QR check-in and live capacity tracking.
+            </p>
+
+            <!-- Search & Filter Toolbar -->
+            <div class="toolbar-section">
+              <div class="search-bar-wrap">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="search-input" class="search-input" placeholder="Search by event title, auditorium, topic, or organizing team..." />
+              </div>
+
+              <div class="filter-row">
+                <div id="category-chips" class="category-chips"></div>
+
+                <div class="filter-dropdowns">
+                  <select id="date-select" class="custom-select">
+                    <option value="all">All Dates</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="today">Today</option>
+                    <option value="past">Past Events</option>
+                  </select>
+
+                  <select id="sort-select" class="custom-select">
+                    <option value="date_asc">Date: Soonest</option>
+                    <option value="popularity">Most Popular</option>
+                    <option value="capacity_remaining">Seats: Fewest Left</option>
+                    <option value="date_desc">Date: Latest</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campus Stats Bar -->
+            <div class="stats-bar">
+              <div class="stat-card">
+                <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                <div class="stat-info">
+                  <h3 id="counter-events">8+</h3>
+                  <p>Campus Events</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon" style="color: #06b6d4; background: rgba(6, 182, 212, 0.15);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <div class="stat-info">
+                  <h3>850+</h3>
+                  <p>Registered Students</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon" style="color: #8b5cf6; background: rgba(139, 92, 246, 0.15);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                <div class="stat-info">
+                  <h3>6 Tracks</h3>
+                  <p>Tech, Fests & Sports</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.15);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div class="stat-info">
+                  <h3>Verified QR</h3>
+                  <p>Entry Protection</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Events Cards Grid -->
+        <section>
+          <div id="events-grid" class="events-grid"></div>
+        </section>
+      </div>
+
+
+      <!-- ========================================================== -->
+      <!-- VIEW D: CAMPUS CALENDAR VIEW                               -->
+      <!-- ========================================================== -->
+      <div id="section-calendar" style="display: none; padding-top: 2rem;">
+        <div id="calendar-container" class="calendar-wrap"></div>
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. MODALS                                                                 -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. Event Detail Modal -->
+  <div id="event-detail-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Campus Event Details</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div id="event-detail-content" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 2. E-Ticket Boarding Pass Modal -->
+  <div id="ticket-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3>Official Campus Pass</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="ticket-card-render"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-outline" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save Pass
+        </button>
+        <button class="btn-primary btn-modal-close">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Event Form Modal (Create & Edit) -->
+  <div id="event-form-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="event-form-title">Create New Campus Event</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="event-form">
+          <input type="hidden" id="event-edit-id" />
+          <div class="form-group">
+            <label class="form-label">Event Title</label>
+            <input type="text" id="form-title" class="form-control" placeholder="e.g. SRM HackMatrix 2026" required />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select id="form-category" class="form-control" required>
+                <option value="Technical">Technical</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Sports">Sports</option>
+                <option value="Seminar">Seminar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date (YYYY-MM-DD)</label>
+              <input type="date" id="form-date" class="form-control" required />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Time Schedule</label>
+              <input type="text" id="form-time" class="form-control" placeholder="e.g. 10:00 AM - 04:00 PM" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Seat Capacity</label>
+              <input type="number" id="form-capacity" class="form-control" min="1" placeholder="e.g. 150" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Campus Venue</label>
+            <input type="text" id="form-venue" class="form-control" placeholder="e.g. Dr. T.P. Ganesan Auditorium" required />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Organizing Club / Domain</label>
+              <input type="text" id="form-organizer" class="form-control" placeholder="e.g. ACM Student Chapter SRMIST" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Organizer Email</label>
+              <input type="email" id="form-email" class="form-control" placeholder="contact@acm.srmist.edu.in" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Banner Image URL</label>
+            <input type="url" id="form-banner" class="form-control" placeholder="https://images.unsplash.com/..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Detailed Description</label>
+            <textarea id="form-description" class="form-control" rows="4" placeholder="Event details, schedule, prerequisites, and prizes..." required></textarea>
+          </div>
+
+          <div class="modal-footer" style="padding-left: 0; padding-right: 0; margin-bottom: -1rem;">
+            <button type="button" class="btn-outline btn-modal-close">Cancel</button>
+            <button type="submit" class="btn-primary">Save Event</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Participants List Modal -->
+  <div id="participants-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3>Registered Attendees Roster</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div id="participants-modal-content" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 5. Check-In Entry Desk Modal -->
+  <div id="checkin-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3>Venue Check-In Desk</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 1.25rem;">
+          Enter or scan the attendee's Ticket ID (e.g. <code>ACM-2026-HK81A</code>) to verify admittance.
+        </p>
+        <form id="checkin-form">
+          <div class="form-group">
+            <label class="form-label">Ticket ID / Pass Code</label>
+            <input type="text" id="checkin-ticket-input" class="form-control" placeholder="ACM-2026-XXXXX" style="text-transform: uppercase; font-family: monospace; font-size: 1.1rem; letter-spacing: 0.05em;" required />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">
+            Verify & Admit Attendee
+          </button>
+        </form>
+
+        <div id="checkin-result-box" style="margin-top: 1.5rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Notification Slide-Out Drawer -->
+  <div id="notification-drawer" class="modal-overlay">
+    <div class="modal-box" style="max-width: 440px; margin-left: auto; margin-right: 1.5rem; height: calc(100vh - 3rem);">
+      <div class="modal-header">
+        <h3>Activity & Alerts</h3>
+        <button class="modal-close btn-modal-close">&times;</button>
+      </div>
+      <div id="notification-list" class="modal-body" style="padding: 0;"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/static/js/qrcode.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+
+  <script>
+    function toggleGatewayRegister() {
+      const regForm = document.getElementById('gateway-register-form');
+      if (regForm) {
+        regForm.style.display = regForm.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
+    async function directDemoLogin(email, password, role) {
+      try {
+        const res = await API.login(email, password);
+        API.setToken(res.access_token);
+        API.setCurrentUser(res.user);
+        state.currentUser = res.user;
+        showToast(`Signed in as ${res.user.name} (${res.user.role.toUpperCase()})`, 'success');
+        onAuthSuccess();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function handleGatewayStudentLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('gateway-student-email').value.trim();
+      const pass = document.getElementById('gateway-student-password').value;
+      try {
+        const res = await API.login(email, pass);
+        API.setToken(res.access_token);
+        API.setCurrentUser(res.user);
+        state.currentUser = res.user;
+        showToast(`Welcome back, ${res.user.name}!`, 'success');
+        onAuthSuccess();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function handleGatewayAdminLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('gateway-admin-email').value.trim();
+      const pass = document.getElementById('gateway-admin-password').value;
+      try {
+        const res = await API.login(email, pass);
+        if (res.user.role !== 'admin') {
+          showToast('Account authorized, but lacks executive admin permissions.', 'warning');
+        }
+        API.setToken(res.access_token);
+        API.setCurrentUser(res.user);
+        state.currentUser = res.user;
+        showToast(`Welcome, Organizer ${res.user.name}!`, 'success');
+        onAuthSuccess();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function handleGatewayStudentRegister(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('gw-reg-name').value.trim(),
+        email: document.getElementById('gw-reg-email').value.trim(),
+        password: document.getElementById('gw-reg-password').value,
+        reg_no: document.getElementById('gw-reg-no').value.trim() || undefined,
+        department: document.getElementById('gw-reg-dept').value.trim() || undefined,
+        role: 'student'
+      };
+      try {
+        const res = await API.register(payload);
+        API.setToken(res.access_token);
+        API.setCurrentUser(res.user);
+        state.currentUser = res.user;
+        showToast(`Student profile created! Welcome, ${res.user.name}.`, 'success');
+        onAuthSuccess();
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    function handleBrandClick() {
+      if (state.currentUser) {
+        if (state.currentUser.role === 'admin') {
+          switchTab('admin');
+        } else {
+          switchTab('dashboard');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 # ACM Student Chapter SRMIST – Campus Event Management Platform
-> **Candidate Task Submission | Web Development Recruitment**  
-> **Domain:** Foundry Domain, Web Development Division, ACM SRMIST
+
 
 ---
 
@@ -102,34 +101,7 @@ To ensure zero-friction evaluation, pre-seeded accounts and a **1-Click "Demo Pr
 
 ---
 
-## 🏁 Running the Application
 
-### 1. Launch the Server
-```bash
-py -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
-```
-Open your browser at: **`http://127.0.0.1:8000/`**
-
-### 2. Interactive API Documentation (Swagger)
-Open: **`http://127.0.0.1:8000/docs`**
-
-### 3. Run Automated Integration Test Suite
-```bash
-py test_api.py
-```
-This tests all 10 backend integration criteria:
-1. Event listing & pagination
-2. Categories aggregation
-3. Student authentication
-4. Admin authentication
-5. Event registration & ticket generation
-6. Duplicate registration prevention (`409 Conflict`)
-7. Event capacity boundary enforcement (`400 Bad Request`)
-8. Registration cancellation (capacity restoration)
-9. Admin overview & participant roster
-10. Check-in desk entry verification
-
----
 
 ## 📂 Project Directory Structure
 
