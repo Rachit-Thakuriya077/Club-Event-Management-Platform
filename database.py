@@ -1,9 +1,22 @@
 import sqlite3
 import os
+import shutil
 from contextlib import contextmanager
 from typing import Generator
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "campus_events.db")
+ORIGINAL_DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "campus_events.db")
+
+# In Vercel serverless environment, the root filesystem is read-only.
+# Copy database to /tmp so writes (registrations, event creation) succeed.
+if os.environ.get("VERCEL"):
+    DB_PATH = "/tmp/campus_events.db"
+    if not os.path.exists(DB_PATH) and os.path.exists(ORIGINAL_DB_PATH):
+        try:
+            shutil.copy2(ORIGINAL_DB_PATH, DB_PATH)
+        except Exception:
+            pass
+else:
+    DB_PATH = ORIGINAL_DB_PATH
 
 def get_connection() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_PATH)

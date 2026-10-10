@@ -80,17 +80,7 @@ This project is a full-stack **Campus Event Management Platform** developed for 
 
 ---
 
-## 🔑 Safe Pre-Seeded Test Credentials
 
-To ensure zero-friction evaluation, pre-seeded accounts and a **1-Click "Demo Profiles"** button are provided right in the navigation bar:
-
-| Role | Name | Email | Password | Details |
-| :--- | :--- | :--- | :--- | :--- |
-| **Student** | Aarav Sharma | `student@srmist.edu.in` | `student123` | RA2211003010156 (CSE) — Has active registrations & tickets |
-| **Student (2)** | Priya Sundaram | `priya@srmist.edu.in` | `student123` | RA2211003010482 (IT) — Registered for HackMatrix & Milan |
-| **Admin / Organizer** | ACM SRMIST Admin | `admin@acm.srmist.edu.in` | `admin123` | Full organizer privileges, check-in desk, CSV export |
-
----
 
 ## 🛠️ Technology Stack
 
