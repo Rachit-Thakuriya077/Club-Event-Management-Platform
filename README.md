@@ -1,4 +1,4 @@
-# ACM Student Chapter SRMIST – Campus Event Management Platform
+SRMIST – Campus Event Management Platform
 
 **Live demo:** _https://club-event-management-platform.vercel.app/_
 ---
